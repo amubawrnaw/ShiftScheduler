@@ -8,11 +8,48 @@
             .cell{
                 padding:0px;
                 margin:0px;
-                height:14vh;
+                height:12vh;
             }
             .day{
                 text-align: right;
             }
+            
+            .input_cell{
+                height:9vh;
+            }
+            .active-day{
+                background-color:#FFF;
+            }
+            .inactive-day{
+                background-color:#BBB;
+            }
+            .input_centered{
+                padding-top:2vh;
+            }
+            .selected_button{
+                background-color:#28A71A;
+                background-image: none;
+            }
+            .work-day{
+                cursor:pointer;
+                background-color:#B5FFC6;
+            }
+            .day-off{
+                cursor:pointer;
+                background-color:#FFB4B4;
+            }
+            #inputs{
+                padding-top: 20px;
+            }
+            #shift{
+                display: flex;
+                justify-content: center;
+            }
+            #generate_shift{
+                margin-top: 20px;
+                width:30vh;
+            }
+            
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -20,10 +57,112 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <div class = "row" style = "margin:0;padding:0;">
-            <div class = "col-md-3" style = "height:100vh">
-                <div class = "cell">
-                    <button id = "generate_shift" class = "button">Generate</button>
+        <div class = "row" style = "margin:0;padding-left:5vh;padding-right:5vh;padding-top:2vh;">
+            <div class = "col-md-3" style = "height:90vh">
+                <div class = "container cell">
+                    <h4 style = "text-align: center;margin-top: 5vh;">Crew List:</h4>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>A:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>B:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>C:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>D:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>E:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>F:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>G:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>H:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col" id = "shift">
+                            <button id = "generate_shift" class = "btn btn-outline-primary" >Generate</button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <div class = "col-md-9">
@@ -31,25 +170,25 @@
                 <div class = "container-fluid" id = "calendar">
                     <div class = "row">
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Monday</h5>
+                            <h5 style = "text-align: center">Monday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Tuesday</h5>
+                            <h5 style = "text-align: center">Tuesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Wednesday</h5>
+                            <h5 style = "text-align: center">Wednesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Thursday</h5>
+                            <h5 style = "text-align: center">Thursday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Friday</h5>
+                            <h5 style = "text-align: center">Friday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Saturday</h5>
+                            <h5 style = "text-align: center">Saturday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = "bordered">Sunday</h5>
+                            <h5 style = "text-align: center">Sunday</h5>
                         </div>
                     </div>
                 </div>            
@@ -57,7 +196,97 @@
         </div>
     </body>
     <script>
-        var crew_list =  [];
+        //template
+        function crew(name, off){
+            this.name = name; 
+            this.off = off;
+            this.prev_day = -1;
+            this.g_count = 8;
+            this.m_count = 8;
+            this.a_count = 8;
+            this.g = 0;
+            this.m = 0;
+            this.a = 0;
+            this.isLeader = false;
+        }
+        
+        function day(workers, day){
+            this.graveyard = [];
+            this.morning = [];
+            this.afternoon = [];
+        }
+        
+        //template
+        $(".day-off-btn").click(function(){
+            var days = $(".active-day");
+            
+            if($(this).hasClass("selected-button")){
+                //unselect
+                $(".day-off-btn").removeClass("selected-button");
+                $(this).removeClass("selected-button");
+                $(".active-day").removeClass("work-day");
+                $(".active-day").removeClass("day-off");
+                selected_crew = -1;
+            }else{
+                //select
+                $(".active").button('toggle');
+                $(".day-off-btn").removeClass("selected-button");
+                $(this).addClass("selected-button");
+                $(".active-day").addClass("work-day");
+                $(".active-day").removeClass("day-off");
+                selected_crew = convert($(this).parent().parent().children()[0].children[0].innerHTML.split(":")[0]);
+                var days = $(".active-day");
+                var temp = crew_off[selected_crew];
+                for(var i = 0 ; i < temp.length ;i++){
+                    days[temp[i]-1].classList.add("day-off");
+                    days[temp[i]-1].classList.remove("work-day");
+                }
+            }
+        });
+        function convert(x){
+            switch(x){
+                case 'A':
+                    return 0;
+                case 'B':
+                    return 1;
+                case 'C':
+                    return 2;    
+                case 'D':
+                    return 3;    
+                case 'E':
+                    return 4;    
+                case 'F':
+                    return 5;    
+                case 'G':
+                    return 6;    
+                case 'H':  
+                    return 7;
+            }
+            return 0;
+        }
+        $("#calendar").on('click','.work-day',function(){
+            $(this).removeClass("work-day");
+            $(this).addClass("day-off");
+            crew_off[selected_crew].push($(this).children()[0].innerHTML);
+        });
+        
+        $("#calendar").on('click','.day-off',function(){
+            $(this).removeClass("day-off");
+            $(this).addClass("work-day");
+            var index = crew_off[selected_crew].indexOf($(this).children()[0].innerHTML);
+            if (index > -1) {
+              crew_off[selected_crew].splice(index, 1);
+            }
+        });
+        
+        var crew_off =  [];
+        var selected_crew = -1;
+        for(var i = 0 ; i < 8 ; i++){
+            var temp = [];
+            crew_off.push(temp);
+        }
+        
+        
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
         
         var calendar = $("#calendar");
@@ -72,8 +301,7 @@
             
             for(var k = 0 ; k < 7 ; k++){
                 var col = $("<div>");
-                col.addClass("col cell bordered");
-                col.css("backgroundColor","#CCC");
+                col.addClass("col cell bordered inactive-day");
                 col.html("<p class = 'day'></p>");
                 row.append(col);
             }
@@ -84,7 +312,8 @@
             var col = calendar.children()[Math.ceil((curr_date + offset)/7)].children[(curr_date+offset-1)%7];
             var p = col.firstChild;
             p.innerHTML = curr_date;
-            col.style.backgroundColor = "#FFF";
+            col.classList.remove("inactive-day");
+            col.classList.add("active-day");
             curr_date++;
         }
         
