@@ -255,17 +255,9 @@
             }
         });
         
-        var crew_off =  [];
-        var selected_crew = -1;
-        for(var i = 0 ; i < 8 ; i++){
-            var temp = [];
-            crew_off.push(temp);
-        }
-        
+        var crew_off =  Cookies.getJSON("crew_off");
         
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
-        
-        console.log(Cookies.getJSON("crew_off"));
         
         var calendar = $("#calendar");
         var td = new Date();

@@ -258,13 +258,19 @@
               crew_off[selected_crew].splice(index, 1);
             }
         });
-        
         var crew_off =  [];
         var selected_crew = -1;
-        for(var i = 0 ; i < 8 ; i++){
-            var temp = [];
-            crew_off.push(temp);
+        if(Cookies.getJSON("crew_off") == null){
+            for(var i = 0 ; i < 8 ; i++){
+                var temp = [];
+                crew_off.push(temp);
+            }
+        }else{
+            crew_off = Cookies.getJSON("crew_off")
         }
+        
+        
+        
         
         
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
@@ -298,11 +304,8 @@
         }
         
         $("#generate_shift").click(function(){
-            Cookies.set('test','test');
             Cookies.set("crew_off",crew_off);
-            //var temp = JSON.stringify(crew_off);
-            //console.log(JSON.parse(temp));
-            //window.location.href = "gen.html";
+            window.location.href = "gen.html";
         });
         
     </script>
