@@ -12,6 +12,7 @@
             }
             .day{
                 text-align: right;
+                margin:0;
             }
             
             .input_cell{
@@ -24,6 +25,7 @@
                 background-color:#BBB;
             }
             .input_centered{
+                text-align: center;
                 padding-top:2vh;
             }
             .selected_button{
@@ -38,6 +40,13 @@
                 cursor:pointer;
                 background-color:#FFB4B4;
             }
+            .crew-name{
+                
+            }
+            .worker{
+                margin:0!important;
+                padding:0 !important;
+            }
             #inputs{
                 padding-top: 20px;
             }
@@ -47,7 +56,11 @@
             }
             #edit_day_off{
                 margin-top: 20px;
-                width:30vh;
+                width:15vh;
+            }
+            #print{
+                margin-top: 20px;
+                width:15vh;
             }
             
         </style>
@@ -65,11 +78,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>A:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -77,11 +92,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>B:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -89,11 +106,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
-                                    <h3>C:</h3>
+                                <div class = "col-lg-2">
+                                    <h3>C</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -101,11 +120,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>D:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -113,11 +134,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>E:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -125,11 +148,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>F:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -137,11 +162,13 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>G:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
@@ -149,19 +176,26 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>H:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-10">
+                                    <span>
+                                    </span>
+                                    <input type = "text" class = "form-control crew-name" placeholder = "Crew Name">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class = "row">
                         <div class = "col" id = "shift">
-                            <button id = "edit_day_off" class = "btn btn-outline-info" >Edit Day Off</button>
+                            <button id = "edit_day_off" class = "btn btn-outline-info" >Edit Day Offs</button>
                         </div>
+                        <!--
+                        <div class = "col" id = "shift">
+                            <button id = "print" class = "btn btn-outline-info" >Print</button>
+                        </div>
+                        -->
                     </div>
                     
                 </div>
@@ -192,9 +226,21 @@
                             <h5 style = "text-align: center">Sunday</h5>
                         </div>
                     </div>
-                </div>            
+                </div>  
+                <div class = "row">
+                        <div class ="col">
+                            G - Graveyard
+                        </div>
+                        <div class ="col">
+                            M - Morning
+                        </div>
+                        <div class ="col">
+                            A - Afternoon
+                        </div>
+                    </div>
             </div>
         </div>
+        
     </body>
     <script>
         //template
@@ -215,8 +261,119 @@
             this.graveyard = [];
             this.morning = [];
             this.afternoon = [];
+            this.day = day;
+            
+            this.getAvailable = function(aw){
+                var arr = [];
+                arr.push(0);
+                arr.push(0);
+                arr.push(0);
+                for(var i = 0 ; i < aw.length ; i ++){
+                    arr[0] += (aw[i].g_count>0?1:0);
+                    arr[1] += (aw[i].m_count>0?1:0);
+                    arr[2] += (aw[i].a_count>0?1:0);
+                }
+                return arr;
+                
+            }
+            var aw = workers;
+            var g = 1;
+            var m = 1;
+            var a;
+            if(aw.length >= 7)
+                a = 2;
+            else
+                a = 1;
+            var curr = aw;
+            var avail = this.getAvailable(curr);
+            while(g>=0){
+                var ind = -1;
+                var c = null;
+                for(var i = 0 ; i < curr.length ; i++){
+                    var t = curr[i];
+                    if(t.g_count>0&&(avail[1]-2>0?true:(t.m_count==0))&&(avail[2]-(a+1)>0?true:(t.a_count==0))){
+                        ind= i;
+                        c= curr[ind];
+                        break;
+                    }
+                }
+                for(var i = 0 ; i < curr.length; i++){
+                    var temp = curr[i];
+                    if((temp.g_count < c.g_count|| temp.g < c.g) && (c.g_count>0?temp.g_count>0:false) && (avail[1]-2>0?true:(temp.m_count==0))&&(avail[2]-(a+1)>0?true:(temp.a_count==0))){
+                        ind = i;
+                        c = temp;
+                        break;
+                    }
+                }
+                curr.splice(ind, 1);
+                c.g_count--;
+                if(c.g_count==0) c.g_count = 9;
+                c.g++;
+                c.prev_day = 1;
+                this.graveyard[g] = c;
+                g--;
+                avail = this.getAvailable(curr);
+            }
+
+            avail = this.getAvailable(curr);
+            while(m>=0){
+                var ind = -1;
+                var c= null;
+                for(var i = 0 ; i < curr.length ; i++){
+                    var t = curr[i];
+                    if(t.m_count>0 &&(avail[2]-(a+1)>0?true:(t.a_count==0)) && t.prev_day!= 1){
+                        ind= i;
+                        c= curr[ind];
+                        break;
+                    }
+                }
+                for(var i = 0 ; i < curr.length; i++){
+                    var temp = curr[i];
+                    if((temp.m_count < c.m_count || temp.m < c.m) && (c.m_count > 0?temp.m_count>0:false) && (avail[2]-(a+1)>0?true:(temp.a_count==0))&&temp.prev_day!=1){
+                        ind = i;
+                        c = temp;
+                        break;
+                    }
+                }
+                curr.splice(ind, 1);
+                c.m_count--;
+                c.m++;
+                if(c.m_count==0)c.m_count = 9;
+                this.morning[m] = c;
+                c.prev_day = 2;
+                m--;
+                avail = this.getAvailable(curr);
+            }
+            avail = this.getAvailable(curr);
+            while(a>=0){
+                var ind = -1;
+                var c = null;
+                for(var i = 0 ; i < curr.length ; i++){
+                    var t = curr[i];
+
+                    if(t.a_count>0){
+                        ind= i;
+                        c= curr[ind];
+                        break;
+                    }
+                }
+                for(var i = 0 ; i < curr.length; i++){
+                    var temp = curr[i];
+                    if((temp.a_count < c.a_count || temp.a < c.a) && (c.a_count>0?temp.a_count>0:false)){
+                        ind = i;
+                        c = temp;
+                        break;
+                    }
+                }
+                curr.splice(ind, 1);
+                c.a_count--;
+                c.a++;
+                if(c.a_count==0)c.a_count = 9;
+                this.afternoon[a] = c;
+                c.prev_day = 3;
+                a--;
+            }
         }
-        
         //template
         
         function convert(x){
@@ -237,26 +394,47 @@
                     return 6;    
                 case 'H':  
                     return 7;
+                case 0:
+                    return 'A';
+                case 1:
+                    return 'B';
+                case 2:
+                    return 'C';    
+                case 3:
+                    return 'D';    
+                case 4:
+                    return 'E';    
+                case 5:
+                    return 'F';    
+                case 6:
+                    return 'G';    
+                case 7:
+                    return 'H';    
             }
             return 0;
         }
-        $("#calendar").on('click','.work-day',function(){
-            $(this).removeClass("work-day");
-            $(this).addClass("day-off");
-            crew_off[selected_crew].push($(this).children()[0].innerHTML);
-        });
         
-        $("#calendar").on('click','.day-off',function(){
-            $(this).removeClass("day-off");
-            $(this).addClass("work-day");
-            var index = crew_off[selected_crew].indexOf($(this).children()[0].innerHTML);
-            if (index > -1) {
-              crew_off[selected_crew].splice(index, 1);
+        function isAvailable(off, date){
+            for(var i = 0 ; i < crew_off[off].length ; i++){
+                if(crew_off[i] == date) return false;
             }
-        });
+            return true;
+        }
         
-        var crew_off =  Cookies.getJSON("crew_off");
+        /*
+        *
+        *
+        *       INITIALIZATION
+        *
+        *
+        */
+        var crew_off = Cookies.getJSON("crew_off");
+        var crew_list = [];
         
+        for(var i = 0 ; i < 8 ; i++){
+            crew_list.push(new crew(convert(i),[i]));
+            //crew_list.push(new crew(convert(i),crew_off[i]));
+        }
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
         
         var calendar = $("#calendar");
@@ -265,6 +443,7 @@
         var offset = new Date(td.getYear(),td.getMonth()+1%12,1).getDay();
         $("#month").text(months[td.getMonth()]);
         var curr_date = 1;
+        
         for(var i = 0 ; i < 6 ; i++){
             var row = $("<div>");
             row.addClass("row");
@@ -279,16 +458,99 @@
         }
         
         while(curr_date!=last_day+1){
+            working = [];
+            for(var k = 0; k < 8 ; k++){
+				var c = crew_list[k];
+                var valid = true;
+                for(var i = 0 ; i < c.off.length ; i++){
+                    if(c.off[i] == curr_date){
+                        valid = false;
+                        break;
+                    }
+                }
+				if(valid) working.push(c);
+			}
+            var n = new day(working, curr_date);
+            
+            var cont = $("<div>");
+            cont.addClass("container worker");
+            
+            var r1 = $("<div>");
+            r1.addClass("row");
+            var r2 = $("<div>");
+            r2.addClass("row");
+            var r3 = $("<div>");
+            r3.addClass("row");
+            
+            var c1 = $("<div>");
+            c1.addClass("col");
+            var c2 = $("<div>");
+            c2.addClass("col");
+            var c3 = $("<div>");
+            c3.addClass("col");
+            
+            c1.append("G: ");
+            c2.append("M: ");
+            c3.append("A: ");
+            
+            for(var i = 0 ; i < n.graveyard.length ; i++){
+                c1.append("<b>"+n.graveyard[i].name+"<b>");
+                if(i!=n.graveyard.length-1) c1.append(", ");
+            }
+            for(var i = 0 ; i < n.morning.length ; i++){
+                c2.append("<b>"+n.morning[i].name+"<b>");
+                if(i!=n.morning.length-1) c2.append(", ");
+            }
+            for(var i = 0 ; i < n.afternoon.length ; i++){
+                c3.append("<b>"+n.afternoon[i].name+"<b>");
+                if(i!=n.afternoon.length-1) c3.append(", ");
+            }
+            
+            
+            r1.append(c1);
+            r2.append(c2);
+            r3.append(c3);
+            cont.append(r1);
+            cont.append(r2);
+            cont.append(r3);
             var col = calendar.children()[Math.ceil((curr_date + offset)/7)].children[(curr_date+offset-1)%7];
             var p = col.firstChild;
+            $(col).append(cont);
             p.innerHTML = curr_date;
             col.classList.remove("inactive-day");
             col.classList.add("active-day");
             curr_date++;
         }
         
+        
+        /*
+        *
+        *
+        *       INITIALIZATION
+        *
+        *
+        */
+        
         $("#edit_day_off").click(function(){
             window.location.href = "index.html";
+        });
+        $("#print").click(function(){
+            var css = '@page { size: landscape; }',
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+            style.type = 'text/css';
+            style.media = 'print';
+
+            if (style.styleSheet){
+              style.styleSheet.cssText = css;
+            } else {
+              style.appendChild(document.createTextNode(css));
+            }
+
+            head.appendChild(style);
+
+            window.print();
         });
     </script>
 </html>
