@@ -1,6 +1,9 @@
 <html>
     <head>
         <style>
+            .row{
+                /*background-color: #555 !important;*/
+            }
             .bordered{
                 border-width: 1px;
                 border-style: solid;
@@ -255,9 +258,16 @@
             this.m = 0;
             this.a = 0;
             this.isLeader = false;
+            
+            this.toString = function(){
+                return this.name + " gc:" + this.g_count +
+                    "\nmc:" + this.m_count +
+                    "\nac:" + this.a_count +
+                    "\n G: " + this.g + " M: " + this.m + " A: " + this.a;
+            }
         }
         
-        function day(workers, day){
+        function day(day){
             this.graveyard = [];
             this.morning = [];
             this.afternoon = [];
@@ -274,104 +284,107 @@
                     arr[2] += (aw[i].a_count>0?1:0);
                 }
                 return arr;
+            }
+            
+            this.assign_workers = function(curr){
+                var g = 1;
+                var m = 1;
+                var a;
+                if(curr.length >= 7)
+                    a = 2;
+                else
+                    a = 1;
                 
-            }
-            var aw = workers;
-            var g = 1;
-            var m = 1;
-            var a;
-            if(aw.length >= 7)
-                a = 2;
-            else
-                a = 1;
-            var curr = aw;
-            var avail = this.getAvailable(curr);
-            while(g>=0){
-                var ind = -1;
-                var c = null;
-                for(var i = 0 ; i < curr.length ; i++){
-                    var t = curr[i];
-                    if(t.g_count>0&&(avail[1]-2>0?true:(t.m_count==0))&&(avail[2]-(a+1)>0?true:(t.a_count==0))){
-                        ind= i;
-                        c= curr[ind];
-                        break;
+                var avail = this.getAvailable(curr);
+                while(g>=0){
+                    var ind = -1;
+                    var c = null;
+                    for(var i = 0 ; i < curr.length ; i++){
+                        var t = curr[i];
+                        if(t.g_count>0&&(avail[1]-2>0?true:(t.m_count==0))&&(avail[2]-(a+1)>0?true:(t.a_count==0))){
+                            ind= i;
+                            c = curr[ind];
+                            break;
+                        }
                     }
-                }
-                for(var i = 0 ; i < curr.length; i++){
-                    var temp = curr[i];
-                    if((temp.g_count < c.g_count|| temp.g < c.g) && (c.g_count>0?temp.g_count>0:false) && (avail[1]-2>0?true:(temp.m_count==0))&&(avail[2]-(a+1)>0?true:(temp.a_count==0))){
-                        ind = i;
-                        c = temp;
-                        break;
+                    for(var i = 0 ; i < curr.length; i++){
+                        var temp = curr[i];
+                        if((temp.g_count < c.g_count || temp.g < 6) && (c.g_count>0?temp.g_count>0:false) && (avail[1]-2>0?true:(temp.m_count==0))&&(avail[2]-(a+1)>0?true:(temp.a_count==0))){
+                            ind = i;
+                            c = temp;
+                            break;
+                        }
                     }
+                    curr.splice(ind, 1);
+                    c.g_count--;
+                    if(c.g_count==0) c.g_count = 9;
+                    c.g++;
+                    c.prev_day = 1;
+                    this.graveyard.push(c);
+                    g--;
+                    avail = this.getAvailable(curr);
                 }
-                curr.splice(ind, 1);
-                c.g_count--;
-                if(c.g_count==0) c.g_count = 9;
-                c.g++;
-                c.prev_day = 1;
-                this.graveyard[g] = c;
-                g--;
                 avail = this.getAvailable(curr);
-            }
-
-            avail = this.getAvailable(curr);
-            while(m>=0){
-                var ind = -1;
-                var c= null;
-                for(var i = 0 ; i < curr.length ; i++){
-                    var t = curr[i];
-                    if(t.m_count>0 &&(avail[2]-(a+1)>0?true:(t.a_count==0)) && t.prev_day!= 1){
-                        ind= i;
-                        c= curr[ind];
-                        break;
+                while(m>=0){
+                    var ind = -1;
+                    var c = null;
+                    for(var i = 0 ; i < curr.length ; i++){
+                        var t = curr[i];
+                        if(t.m_count>0 &&(avail[2]-(a+1)>0?true:(t.a_count==0)) && t.prev_day!= 1){
+                            ind= i;
+                            c= curr[ind];
+                            break;
+                        }
                     }
-                }
-                for(var i = 0 ; i < curr.length; i++){
-                    var temp = curr[i];
-                    if((temp.m_count < c.m_count || temp.m < c.m) && (c.m_count > 0?temp.m_count>0:false) && (avail[2]-(a+1)>0?true:(temp.a_count==0))&&temp.prev_day!=1){
-                        ind = i;
-                        c = temp;
-                        break;
+                    for(var i = 0 ; i < curr.length; i++){
+                        var temp = curr[i];
+                        if((temp.m_count < c.m_count || temp.m < 5) && (c.m_count > 0?temp.m_count>0:false) && (avail[2]-(a+1)>0?true:(temp.a_count==0))&&temp.prev_day!=1){
+                            ind = i;
+                            c = temp;
+                            break;
+                        }
                     }
+                    //console.log(c.name + " < selected");
+                    curr.splice(ind, 1);
+                    c.m_count--;
+                    c.m++;
+                    if(c.m_count==0)c.m_count = 9;
+                    this.morning.push(c);
+                    c.prev_day = 2;
+                    m--;
+                    avail = this.getAvailable(curr);
                 }
-                curr.splice(ind, 1);
-                c.m_count--;
-                c.m++;
-                if(c.m_count==0)c.m_count = 9;
-                this.morning[m] = c;
-                c.prev_day = 2;
-                m--;
+                
+                
                 avail = this.getAvailable(curr);
-            }
-            avail = this.getAvailable(curr);
-            while(a>=0){
-                var ind = -1;
-                var c = null;
-                for(var i = 0 ; i < curr.length ; i++){
-                    var t = curr[i];
+                while(a>=0){
+                    var ind = -1;
+                    var c = null;
+                    for(var i = 0 ; i < curr.length ; i++){
+                        var t = curr[i];
 
-                    if(t.a_count>0){
-                        ind= i;
-                        c= curr[ind];
-                        break;
+                        if(t.a_count>0){
+                            ind= i;
+                            c= curr[ind];
+                            break;
+                        }
                     }
-                }
-                for(var i = 0 ; i < curr.length; i++){
-                    var temp = curr[i];
-                    if((temp.a_count < c.a_count || temp.a < c.a) && (c.a_count>0?temp.a_count>0:false)){
-                        ind = i;
-                        c = temp;
-                        break;
+                    for(var i = 0 ; i < curr.length; i++){
+                        var temp = curr[i];
+                        if((temp.a_count < c.a_count || temp.a < 5) && (c.a_count>0?temp.a_count>0:false)){
+                            ind = i;
+                            c = temp;
+                            break;
+                        }
                     }
+                    curr.splice(ind, 1);
+                    c.a_count--;
+                    c.a++;
+                    if(c.a_count==0)c.a_count = 9;
+                    this.afternoon.push(c);
+                    c.prev_day = 3;
+                    a--;
                 }
-                curr.splice(ind, 1);
-                c.a_count--;
-                c.a++;
-                if(c.a_count==0)c.a_count = 9;
-                this.afternoon[a] = c;
-                c.prev_day = 3;
-                a--;
             }
         }
         //template
@@ -442,7 +455,7 @@
         var last_day = new Date(td.getYear(),td.getMonth()+1%12,0).getDate();
         var offset = new Date(td.getYear(),td.getMonth()+1%12,1).getDay();
         $("#month").text(months[td.getMonth()]);
-        var curr_date = 1;
+        var curr_date = 1;  
         
         for(var i = 0 ; i < 6 ; i++){
             var row = $("<div>");
@@ -456,22 +469,26 @@
             }
             calendar.append(row);
         }
-        
+        var work_month = [];
         while(curr_date!=last_day+1){
+            
             working = [];
+            //console.log("$$$$$$$$$$$$$$$$$$" + curr_date);
             for(var k = 0; k < 8 ; k++){
 				var c = crew_list[k];
                 var valid = true;
                 for(var i = 0 ; i < c.off.length ; i++){
                     if(c.off[i] == curr_date){
                         valid = false;
+                        c.prev_day = -1;
                         break;
                     }
                 }
 				if(valid) working.push(c);
 			}
-            var n = new day(working, curr_date);
-            
+            var n = new day(curr_date);
+            n.assign_workers(working);
+            work_month.push(n);
             var cont = $("<div>");
             cont.addClass("container worker");
             
@@ -521,7 +538,9 @@
             col.classList.add("active-day");
             curr_date++;
         }
-        
+        for(var i = 0 ; i < crew_list.length ; i++){
+            console.log(crew_list[i].toString());
+        }
         
         /*
         *
