@@ -8,10 +8,10 @@
             .cell{
                 padding:0px;
                 margin:0px;
-                height:16vh;
+                height:12vh;
             }
             .day{
-                display:none;
+                text-align: right;
             }
             
             .input_cell{
@@ -39,9 +39,6 @@
                 cursor:pointer;
                 background-color:#FFB4B4;
             }
-            .dates{
-                cursor:pointer;
-            }
             #inputs{
                 padding-top: 20px;
             }
@@ -61,7 +58,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <div class = "row" style = "margin:0;padding-left:5vh;padding-right:5vh;padding-top:5vh;">
+        <div class = "row" style = "margin:0;padding-left:5vh;padding-right:5vh;padding-top:2vh;">
             <div class = "col-md-3" style = "height:90vh">
                 <div class = "container cell">
                     <h4 style = "text-align: center;margin-top: 5vh;">Crew List:</h4>
@@ -149,6 +146,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col">
+                                    <h3>H:</h3>
+                                </div>
+                                <div class = "col">
+                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class = "row">
                         <div class = "col" id = "shift">
                             <button id = "generate_shift" class = "btn btn-outline-primary" >Generate</button>
@@ -158,28 +167,29 @@
                 </div>
             </div>
             <div class = "col-md-9">
+                <h1 id = "month" style="text-align: center"></h1>
                 <div class = "container-fluid" id = "calendar">
                     <div class = "row">
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Monday</h5>
+                            <h5 style = "text-align: center">Monday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Tuesday</h5>
+                            <h5 style = "text-align: center">Tuesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Wednesday</h5>
+                            <h5 style = "text-align: center">Wednesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Thursday</h5>
+                            <h5 style = "text-align: center">Thursday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Friday</h5>
+                            <h5 style = "text-align: center">Friday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Saturday</h5>
+                            <h5 style = "text-align: center">Saturday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Sunday</h5>
+                            <h5 style = "text-align: center">Sunday</h5>
                         </div>
                     </div>
                 </div>            
@@ -187,47 +197,11 @@
         </div>
     </body>
     <script>
-        $(".dates").click(function(){
-            var day = $(this).html();
-            var ind;
-            switch(day){
-                case 'Monday':
-                        ind = 0;
-                break;
-                case 'Tuesday':
-                        ind = 1;
-                break;
-                case 'Wednesday':
-                        ind = 2;
-                break;
-                case 'Thursday':
-                        ind = 3;
-                break;
-                case 'Friday':
-                        ind = 4;
-                break;
-                case 'Saturday':
-                        ind = 5;
-                break;
-                case 'Sunday':
-                        ind = 6;
-                break;
-            }
-            var days = $("#calendar").children();
-            /* TODO
-            for(int i = 0 ; i < days.length() ; i++){
-                if(!days[i].children()[ind].hasClass("day-off")){
-                    days[i].children()[ind].addClass("day-off");
-                }
-            }
-            */
-        });
         $(".day-off-btn").click(function(){
             var days = $(".active-day");
             
             if($(this).hasClass("selected-button")){
                 //unselect
-                console.log("asd");
                 $(".day-off-btn").removeClass("selected-button");
                 $(this).removeClass("selected-button");
                 $(".active-day").removeClass("work-day");
@@ -264,7 +238,9 @@
                 case 'F':
                     return 5;    
                 case 'G':
-                    return 6;
+                    return 6;    
+                case 'H':  
+                    return 7;
             }
             return 0;
         }
@@ -293,10 +269,16 @@
             crew_off = Cookies.getJSON("crew_off")
         }
         
-        //initialization
+        
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
+        
         var calendar = $("#calendar");
+        var td = new Date();
+        var last_day = new Date(td.getYear(),td.getMonth()+1%12,0).getDate();
+        var offset = new Date(td.getYear(),td.getMonth()+1%12,1).getDay();
+        $("#month").text(months[td.getMonth()]);
         var curr_date = 1;
-        for(var i = 0 ; i < 5 ; i++){
+        for(var i = 0 ; i < 6 ; i++){
             var row = $("<div>");
             row.addClass("row");
             
@@ -308,9 +290,9 @@
             }
             calendar.append(row);
         }
-        console.log(calendar.children());
-        while(curr_date!=36){
-            var col = calendar.children()[Math.ceil((curr_date)/7)].children[(curr_date-1)%7];
+        
+        while(curr_date!=last_day+1){
+            var col = calendar.children()[Math.ceil((curr_date + offset)/7)].children[(curr_date+offset-1)%7];
             var p = col.firstChild;
             p.innerHTML = curr_date;
             col.classList.remove("inactive-day");
