@@ -1,6 +1,13 @@
 <html>
     <head>
         <style>
+            .big{
+                text-align: center;
+                font-size:6vh;
+            }
+            .row{
+                /*background-color: #555 !important;*/
+            }
             .bordered{
                 border-width: 1px;
                 border-style: solid;
@@ -8,7 +15,7 @@
             .cell{
                 padding:0px;
                 margin:0px;
-                height:16vh;
+                height:12vh;
             }
             .day{
                 display:none;
@@ -24,8 +31,8 @@
                 background-color:#BBB;
             }
             .input_centered{
-                padding-top:2vh;
                 text-align: center;
+                padding-top:2vh;
             }
             .selected_button{
                 background-color:#28A71A;
@@ -39,8 +46,12 @@
                 cursor:pointer;
                 background-color:#FFB4B4;
             }
+            .worker{
+                margin:0!important;
+                padding:0 !important;
+            }
             .dates{
-                cursor:pointer;
+                cursor:crosshair;
             }
             #inputs{
                 padding-top: 20px;
@@ -49,30 +60,89 @@
                 display: flex;
                 justify-content: center;
             }
-            #generate_shift{
+            #edit_day_off{
                 margin-top: 20px;
-                width:30vh;
+                width:15vh;
             }
+            #print{
+                margin-top: 20px;
+                width:15vh;
+            }
+            
         </style>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script>
+            $(document).ready(function(){
+                
+                $(".day-off-btn").click(function(){
+                    var off;
+                    $(".active").removeClass("active");
+                    $(this).addClass("active");
+                    
+                    gen($(this).parent().parent().children()[0].innerHTML.split(":")[0].split("<h3>")[1]);
+                });
+                
+                function gen(off){
+                    $('.active-day').remove();
+                    var free = [];
+                    for(var i = 0 ; i < crews.length; i++){
+                        if(crews[i]!=off){
+                            free.push(crews[i]);
+                        }
+                    }
+                    for(var i = 0 ; i < 6 ; i++){
+                        var row = $("<div>");
+                        row.addClass("row");
+                        row.append("<div class = 'col big active-day'>" + shift[i] + "</div>");
+                        for(var k = 0 ; k < 7 ; k++){
+                            var col = $("<div>");
+                            col.addClass("col cell bordered active-day");
+                            col.html("<p class = 'big'>"+free[work_matrix[i][k]-1]+"</p>");
+                            row.append(col);
+                        }
+                        calendar.append(row);
+                    }
+                }
+                
+                //code exec on doc load
+                var work_matrix = [
+                    [1,7,6,5,4,3,2],
+                    [2,1,7,6,5,4,3],
+                    [3,2,1,7,6,5,4],
+                    [4,3,2,1,7,6,5],
+                    [5,4,3,2,1,7,6],
+                    [6,5,4,3,2,1,7],
+                    [7,6,5,4,3,2,1],
+                ];
+                var crews = ['A','B','C','D','E','F','G','H'];
+                var calendar = $("#calendar");
+                var shift = ['M','M','S','S','G','G'];
+                gen('H');
+                
+            });
+        
+        </script>
     </head>
     <body>
         <div class = "row" style = "margin:0;padding-left:5vh;padding-right:5vh;padding-top:5vh;">
-            <div class = "col-md-3" style = "height:90vh">
+            <div class = "col-md-4" style = "height:90vh">
                 <div class = "container cell">
-                    <h4 style = "text-align: center;margin-top: 5vh;">Crew List:</h4>
+                    <h4 style = "text-align: center;">Crew List:</h4>
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>A:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Joy'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
                                 </div>
                             </div>
                         </div>
@@ -80,11 +150,14 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>B:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Moises'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger" >Off</button>
                                 </div>
                             </div>
                         </div>
@@ -92,11 +165,14 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>C:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Jonas'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
                                 </div>
                             </div>
                         </div>
@@ -104,11 +180,14 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>D:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Michelle'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
                                 </div>
                             </div>
                         </div>
@@ -116,11 +195,14 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>E:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Joseph'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger" >Off</button>
                                 </div>
                             </div>
                         </div>
@@ -128,11 +210,14 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>F:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'George'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
                                 </div>
                             </div>
                         </div>
@@ -140,188 +225,79 @@
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
-                                <div class = "col">
+                                <div class = "col-lg-2">
                                     <h3>G:</h3>
                                 </div>
-                                <div class = "col">
-                                    <button type="button" class="btn day-off-btn btn-outline-success" data-toggle = "button">Set Day Off</button>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Joan'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class = "row">
-                        <div class = "col" id = "shift">
-                            <button id = "generate_shift" class = "btn btn-outline-primary" >Generate</button>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>H:</h3>
+                                </div>
+                                <div class = "col-lg-7">
+                                    <input type = "text" class = "form-control crew-name" value = 'Mark'>
+                                </div>
+                                <div class = "col-lg-1">
+                                    <button type="button" class="btn day-off-btn btn-outline-danger active">Off</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
-            <div class = "col-md-9">
+            <div class = "col-md-8">
                 <div class = "container-fluid" id = "calendar">
                     <div class = "row">
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Monday</h5>
+                            <h5 style = "text-align: center">Shift</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Tuesday</h5>
+                            <h5 style = "text-align: center">Monday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Wednesday</h5>
+                            <h5 style = "text-align: center">Tuesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Thursday</h5>
+                            <h5 style = "text-align: center">Wednesday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Friday</h5>
+                            <h5 style = "text-align: center">Thursday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Saturday</h5>
+                            <h5 style = "text-align: center">Friday</h5>
                         </div>
                         <div class = "col">
-                            <h5 style = "text-align: center" class = 'dates'>Sunday</h5>
+                            <h5 style = "text-align: center">Saturday</h5>
+                        </div>
+                        <div class = "col">
+                            <h5 style = "text-align: center">Sunday</h5>
                         </div>
                     </div>
-                </div>            
+                </div>  
+                <div class = "row">
+                        <div class ="col">
+                            <p style = 'text-align:right'>Legend:</p>
+                        </div>
+                        <div class ="col">
+                            <p style = 'text-align:center'>M - Morning</p>
+                        </div>
+                        <div class ="col">
+                            <p style = 'text-align:center'>S - Swing</p>
+                        </div>
+                        <div class ="col">
+                            <p style = 'text-align:center'>G - Graveyard</p>
+                        </div>
+                    </div>
             </div>
         </div>
     </body>
-    <script>
-        $(".dates").click(function(){
-            var day = $(this).html();
-            var ind;
-            switch(day){
-                case 'Monday':
-                        ind = 0;
-                break;
-                case 'Tuesday':
-                        ind = 1;
-                break;
-                case 'Wednesday':
-                        ind = 2;
-                break;
-                case 'Thursday':
-                        ind = 3;
-                break;
-                case 'Friday':
-                        ind = 4;
-                break;
-                case 'Saturday':
-                        ind = 5;
-                break;
-                case 'Sunday':
-                        ind = 6;
-                break;
-            }
-            var days = $("#calendar").children();
-            /* TODO
-            for(int i = 0 ; i < days.length() ; i++){
-                if(!days[i].children()[ind].hasClass("day-off")){
-                    days[i].children()[ind].addClass("day-off");
-                }
-            }
-            */
-        });
-        $(".day-off-btn").click(function(){
-            var days = $(".active-day");
-            
-            if($(this).hasClass("selected-button")){
-                //unselect
-                console.log("asd");
-                $(".day-off-btn").removeClass("selected-button");
-                $(this).removeClass("selected-button");
-                $(".active-day").removeClass("work-day");
-                $(".active-day").removeClass("day-off");
-                selected_crew = -1;
-            }else{
-                //select
-                $(".active").button('toggle');
-                $(".day-off-btn").removeClass("selected-button");
-                $(this).addClass("selected-button");
-                $(".active-day").addClass("work-day");
-                $(".active-day").removeClass("day-off");
-                selected_crew = convert($(this).parent().parent().children()[0].children[0].innerHTML.split(":")[0]);
-                var days = $(".active-day");
-                var temp = crew_off[selected_crew];
-                for(var i = 0 ; i < temp.length ;i++){
-                    days[temp[i]-1].classList.add("day-off");
-                    days[temp[i]-1].classList.remove("work-day");
-                }
-            }
-        });
-        function convert(x){
-            switch(x){
-                case 'A':
-                    return 0;
-                case 'B':
-                    return 1;
-                case 'C':
-                    return 2;    
-                case 'D':
-                    return 3;    
-                case 'E':
-                    return 4;    
-                case 'F':
-                    return 5;    
-                case 'G':
-                    return 6;
-            }
-            return 0;
-        }
-        $("#calendar").on('click','.work-day',function(){
-            $(this).removeClass("work-day");
-            $(this).addClass("day-off");
-            crew_off[selected_crew].push($(this).children()[0].innerHTML);
-        });
-        
-        $("#calendar").on('click','.day-off',function(){
-            $(this).removeClass("day-off");
-            $(this).addClass("work-day");
-            var index = crew_off[selected_crew].indexOf($(this).children()[0].innerHTML);
-            if (index > -1) {
-              crew_off[selected_crew].splice(index, 1);
-            }
-        });
-        var crew_off =  [];
-        var selected_crew = -1;
-        if(Cookies.getJSON("crew_off") == null){
-            for(var i = 0 ; i < 8 ; i++){
-                var temp = [];
-                crew_off.push(temp);
-            }
-        }else{
-            crew_off = Cookies.getJSON("crew_off")
-        }
-        
-        //initialization
-        var calendar = $("#calendar");
-        var curr_date = 1;
-        for(var i = 0 ; i < 5 ; i++){
-            var row = $("<div>");
-            row.addClass("row");
-            
-            for(var k = 0 ; k < 7 ; k++){
-                var col = $("<div>");
-                col.addClass("col cell bordered inactive-day");
-                col.html("<p class = 'day'></p>");
-                row.append(col);
-            }
-            calendar.append(row);
-        }
-        console.log(calendar.children());
-        while(curr_date!=36){
-            var col = calendar.children()[Math.ceil((curr_date)/7)].children[(curr_date-1)%7];
-            var p = col.firstChild;
-            p.innerHTML = curr_date;
-            col.classList.remove("inactive-day");
-            col.classList.add("active-day");
-            curr_date++;
-        }
-        
-        $("#generate_shift").click(function(){
-            Cookies.set("crew_off",crew_off);
-            window.location.href = "gen.html";
-        });
-        
-    </script>
 </html>
