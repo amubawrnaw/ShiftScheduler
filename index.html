@@ -3,7 +3,8 @@
         <style>
             .big{
                 text-align: center;
-                font-size:6vh;
+                font-size:3vh;
+                margin-top:3vh;
             }
             .row{
                 /*background-color: #555 !important;*/
@@ -50,6 +51,10 @@
                 margin:0!important;
                 padding:0 !important;
             }
+            .btn{
+                width:100%;
+                margin-top:2vh;
+            }
             .dates{
                 cursor:crosshair;
             }
@@ -77,31 +82,46 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script>
             $(document).ready(function(){
-                
-                $(".day-off-btn").click(function(){
-                    var off;
-                    $(".active").removeClass("active");
-                    $(this).addClass("active");
-                    
-                    gen($(this).parent().parent().children()[0].innerHTML.split(":")[0].split("<h3>")[1]);
+                $("#update").click(function(){
+                    updt();
+                });
+                $("#clear").click(function(){
+                    var crews = $(".crew-name");
+                    for(var i = 0 ; i < crews.length ; i++){
+                        crews[i].value = "";
+                    }
+                    updt();
                 });
                 
-                function gen(off){
-                    $('.active-day').remove();
-                    var free = [];
-                    for(var i = 0 ; i < crews.length; i++){
-                        if(crews[i]!=off){
-                            free.push(crews[i]);
-                        }
+                function updt(){
+                    var crews = $(".crew-name");
+                    var carr = [];
+                    for(var i = 0 ; i < crews.length ; i++){
+                        var temp = crews[i].value;
+                        if(temp == "" || temp == " ")
+                            carr.push(def[i]);
+                        else
+                            carr.push(crews[i].value);
                     }
-                    for(var i = 0 ; i < 6 ; i++){
+                    console.log(carr);
+                    gen(carr);
+                }
+                
+                
+                function gen(arrw){
+                    $('.active-day').remove();
+                    var shift = ['Morning','Morning','Swing','Swing','Graveyard','Graveyard', 'Off'];
+                    for(var i = 0 ; i < 7 ; i++){
                         var row = $("<div>");
                         row.addClass("row");
                         row.append("<div class = 'col big active-day'>" + shift[i] + "</div>");
                         for(var k = 0 ; k < 7 ; k++){
                             var col = $("<div>");
-                            col.addClass("col cell bordered active-day");
-                            col.html("<p class = 'big'>"+free[work_matrix[i][k]-1]+"</p>");
+                            col.addClass("col cell active-day");
+                            if(i != 6)
+                                col.addClass("bordered");
+                            
+                            col.html("<p class = 'big'>"+arrw[work_matrix[i][k]-1]+"</p>");
                             row.append(col);
                         }
                         calendar.append(row);
@@ -116,108 +136,40 @@
                     [4,3,2,1,7,6,5],
                     [5,4,3,2,1,7,6],
                     [6,5,4,3,2,1,7],
-                    [7,6,5,4,3,2,1],
+                    [7,6,5,4,3,2,1]
                 ];
-                var crews = ['A','B','C','D','E','F','G','H'];
+                var def = ['1','2','3','4','5','6','7','8'];
                 var calendar = $("#calendar");
-                var shift = ['M','M','S','S','G','G'];
-                gen('H');
-                
+                updt();
             });
         
         </script>
     </head>
     <body>
         <div class = "row" style = "margin:0;padding-left:5vh;padding-right:5vh;padding-top:5vh;">
-            <div class = "col-md-4" style = "height:90vh">
+            <div class = "col-md-2" style = "height:90vh">
                 <div class = "container cell">
                     <h4 style = "text-align: center;">Crew List:</h4>
                     <div class = "row bordered">
                         <div class = "col input_cell">
                             <div class = "row input_centered">
                                 <div class = "col-lg-2">
-                                    <h3>A:</h3>
+                                    <h3>1:</h3>
                                 </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Joy'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "row bordered">
-                        <div class = "col input_cell">
-                            <div class = "row input_centered">
-                                <div class = "col-lg-2">
-                                    <h3>B:</h3>
-                                </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Moises'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger" >Off</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "row bordered">
-                        <div class = "col input_cell">
-                            <div class = "row input_centered">
-                                <div class = "col-lg-2">
-                                    <h3>C:</h3>
-                                </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Jonas'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "row bordered">
-                        <div class = "col input_cell">
-                            <div class = "row input_centered">
-                                <div class = "col-lg-2">
-                                    <h3>D:</h3>
-                                </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Michelle'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "row bordered">
-                        <div class = "col input_cell">
-                            <div class = "row input_centered">
-                                <div class = "col-lg-2">
-                                    <h3>E:</h3>
-                                </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Joseph'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger" >Off</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "row bordered">
-                        <div class = "col input_cell">
-                            <div class = "row input_centered">
-                                <div class = "col-lg-2">
-                                    <h3>F:</h3>
-                                </div>
-                                <div class = "col-lg-7">
+                                <div class = "col-lg-10">
                                     <input type = "text" class = "form-control crew-name" value = 'George'>
                                 </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>2:</h3>
+                                </div>
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name" value = 'Joy'>
                                 </div>
                             </div>
                         </div>
@@ -226,13 +178,34 @@
                         <div class = "col input_cell">
                             <div class = "row input_centered">
                                 <div class = "col-lg-2">
-                                    <h3>G:</h3>
+                                    <h3>3:</h3>
                                 </div>
-                                <div class = "col-lg-7">
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name" value = 'Toto Mark'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>4:</h3>
+                                </div>
+                                <div class = "col-lg-10">
                                     <input type = "text" class = "form-control crew-name" value = 'Joan'>
                                 </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger">Off</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>5:</h3>
+                                </div>
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name" value = 'Jonas'>
                                 </div>
                             </div>
                         </div>
@@ -241,20 +214,49 @@
                         <div class = "col input_cell">
                             <div class = "row input_centered">
                                 <div class = "col-lg-2">
-                                    <h3>H:</h3>
+                                    <h3>6:</h3>
                                 </div>
-                                <div class = "col-lg-7">
-                                    <input type = "text" class = "form-control crew-name" value = 'Mark'>
-                                </div>
-                                <div class = "col-lg-1">
-                                    <button type="button" class="btn day-off-btn btn-outline-danger active">Off</button>
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name" value = 'Moises'>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>7:</h3>
+                                </div>
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name" value = 'Michelle'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row bordered">
+                        <div class = "col input_cell">
+                            <div class = "row input_centered">
+                                <div class = "col-lg-2">
+                                    <h3>8:</h3>
+                                </div>
+                                <div class = "col-lg-10">
+                                    <input type = "text" class = "form-control crew-name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col">
+                            <button type="button" class="btn btn-outline-danger" id = 'clear'>Clear</button>
+                        </div>
+                        <div class = "col">
+                            <button type="button" class="btn btn-outline-success" id = 'update'>Update</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class = "col-md-8">
+            <div class = "col-md-10">
                 <div class = "container-fluid" id = "calendar">
                     <div class = "row">
                         <div class = "col">
@@ -283,20 +285,6 @@
                         </div>
                     </div>
                 </div>  
-                <div class = "row">
-                        <div class ="col">
-                            <p style = 'text-align:right'>Legend:</p>
-                        </div>
-                        <div class ="col">
-                            <p style = 'text-align:center'>M - Morning</p>
-                        </div>
-                        <div class ="col">
-                            <p style = 'text-align:center'>S - Swing</p>
-                        </div>
-                        <div class ="col">
-                            <p style = 'text-align:center'>G - Graveyard</p>
-                        </div>
-                    </div>
             </div>
         </div>
     </body>
